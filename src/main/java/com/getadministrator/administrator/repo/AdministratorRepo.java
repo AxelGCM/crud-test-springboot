@@ -15,5 +15,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AdministratorRepo extends JpaRepository<Administrator, Long>{
     void deleteAdministratorById(Long id);
-    Optional findAdministratorByid(Long id);
+    Optional<Administrator> findAdministratorByid(Long id);
 }

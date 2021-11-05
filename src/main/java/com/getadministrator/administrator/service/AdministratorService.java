@@ -5,10 +5,11 @@
  */
 package com.getadministrator.administrator.service;
 
+import com.getadministrator.administrator.exception.UserNotFoundException;
 import com.getadministrator.administrator.model.Administrator;
 import com.getadministrator.administrator.repo.AdministratorRepo;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -17,6 +18,7 @@ import java.util.List;
 public class AdministratorService {
     private final AdministratorRepo administratorRepo;
 
+    @Autowired
     public AdministratorService(AdministratorRepo administratorRepo) {
         this.administratorRepo = administratorRepo;
     }
@@ -33,9 +35,9 @@ public class AdministratorService {
         return administratorRepo.save(administrator);
     }
     
-    public Administrator findAdministratorById(Long id){
+    public Administrator findAdministratorById(Long id) throws Throwable{
         return (Administrator) administratorRepo.findAdministratorByid(id)
-                .orElseThrow(() -> new UserPrincipalNotFoundException("Administrator by id " + id + " was not found"));
+                .orElseThrow(() -> new UserNotFoundException("Administrator by id " + id + " was not found"));
     }
     
     public void deleteAdministrator(Long id){
