@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.getadministrator.administrator;
+package com.getadministrator.administrator.resource;
 
 import com.getadministrator.administrator.model.Administrator;
 import com.getadministrator.administrator.service.AdministratorService;
@@ -26,39 +26,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/administrator")
 public class AdministratorResource {
-    private final AdministratorService adminsitratorService;
+    private final AdministratorService administratorService;
 
-    public AdministratorResource(AdministratorService adminsitratorService) {
-        this.adminsitratorService = adminsitratorService;
+    public AdministratorResource(AdministratorService administratorService) {
+        this.administratorService = administratorService;
     }
     
     @GetMapping("/all")
     public ResponseEntity<List<Administrator>> getAllAdministrator(){
-        List<Administrator> administrators = adminsitratorService.findAllAdministrators();
+        List<Administrator> administrators = administratorService.findAllAdministrators();
         return new ResponseEntity<>(administrators, HttpStatus.OK);
     }
     
     @GetMapping("/find/{id}")
-    public ResponseEntity<Administrator> getAdministratorById(@PathVariable("id") Long id) throws Throwable{
-        Administrator administrator = adminsitratorService.findAdministratorById(id);
+    public ResponseEntity<Administrator> getAdministratorById(@PathVariable("id") Long id) {
+        Administrator administrator = administratorService.findAdministratorById(id);
         return new ResponseEntity<>(administrator, HttpStatus.OK);
     }
     
     @PostMapping("/add")
     public ResponseEntity<Administrator> addAdministrator(@RequestBody Administrator administrator){
-        Administrator newAdministrator = adminsitratorService.addAdministrator(administrator);
+        Administrator newAdministrator = administratorService.addAdministrator(administrator);
         return new ResponseEntity<>(newAdministrator,HttpStatus.CREATED);
     }
     
     @PutMapping("/update")
     public ResponseEntity<Administrator> updateAdministrator(@RequestBody Administrator administrator){
-        Administrator updateAdministrator = adminsitratorService.updateAdministrator(administrator);
+        Administrator updateAdministrator = administratorService.updateAdministrator(administrator);
         return new ResponseEntity<>(updateAdministrator,HttpStatus.CREATED);
     }
     
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAdministrator(@PathVariable("id") Long id){
-        adminsitratorService.deleteAdministrator(id);
+        administratorService.deleteAdministrator(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     

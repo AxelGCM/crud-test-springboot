@@ -9,12 +9,16 @@ import com.getadministrator.administrator.exception.UserNotFoundException;
 import com.getadministrator.administrator.model.Administrator;
 import com.getadministrator.administrator.repo.AdministratorRepo;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Axel
  */
+@Service
+@Transactional
 public class AdministratorService {
     private final AdministratorRepo administratorRepo;
 
@@ -35,8 +39,8 @@ public class AdministratorService {
         return administratorRepo.save(administrator);
     }
     
-    public Administrator findAdministratorById(Long id) throws Throwable{
-        return (Administrator) administratorRepo.findAdministratorByid(id)
+    public Administrator findAdministratorById(Long id){
+        return administratorRepo.findAdministratorByid(id)
                 .orElseThrow(() -> new UserNotFoundException("Administrator by id " + id + " was not found"));
     }
     
